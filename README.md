@@ -22,6 +22,8 @@ The plugins are signed with my key, so Zeron refuses a copy whose files were cha
 
 Remaining session and weekly usage for the selected coding account, in Zeron’s bottom bar.
 
+<img src="media/account-usage.png" width="668" alt="Account Usage: the remaining usage under the message box">
+
 - Folder: `account-usage` · version 1.1.0
 - Asks for: `ui.add`, `commands`
 - Needs: Python 3
@@ -30,6 +32,10 @@ Remaining session and weekly usage for the selected coding account, in Zeron’s
 
 Parametric 3D CAD beside your chat: describe a part and the agent models it, then shape it with the mouse, sliders and sketches.
 
+<img src="media/cad.gif" width="520" alt="CAD: a model rebuilding as its parameters change">
+
+<img src="media/cad.png" width="520" alt="The CAD tab beside a chat">
+
 - Folder: `cad` · version 0.1.0
 - Asks for: `ui.add`, `panel.tabs`, `compose`, `tools`, `files`
 
@@ -37,12 +43,16 @@ Parametric 3D CAD beside your chat: describe a part and the agent models it, the
 
 A deep-space look for the whole window: stars and a nebula behind everything, a ringed planet, a rocket on the message box, tonight's moon, and an orbital wallpaper for new chats.
 
+<img src="media/cosmos.png" width="864" alt="Cosmos: stars and a nebula behind the whole window, a planet in the corner, a rocket on the message box">
+
 - Folder: `cosmos` · version 1.0.0
 - Asks for: `ui.add`, `ui.change`, `sessions.read`
 
 ### [Headamp](headamp/)
 
 A tiny top-bar music player that opens a full retro Winamp deck.
+
+<img src="media/headamp.png" width="446" alt="Headamp: the top-bar player and its Winamp deck">
 
 - Folder: `headamp` · version 1.3.0
 - Asks for: `ui.add`, `web`, `commands`
@@ -52,6 +62,8 @@ A tiny top-bar music player that opens a full retro Winamp deck.
 
 A tiny pixel fellow, joined by a colour-coded walker for each running subagent of the open chat.
 
+<img src="media/pixel-walker.gif" width="900" alt="Pixel Walker: a pixel fellow walking along the top bar">
+
 - Folder: `pixel-walker` · version 1.1.0
 - Asks for: `ui.add`, `sessions.read`, `commands`
 - Needs: Python 3
@@ -59,6 +71,8 @@ A tiny pixel fellow, joined by a colour-coded walker for each running subagent o
 ### [Plugin Manager](plugin-manager/)
 
 A Plugins row in the sidebar that opens Settings → Plugins in one click.
+
+<img src="media/plugin-manager.png" width="327" alt="Plugin Manager: the Plugins row in the sidebar">
 
 - Folder: `plugin-manager` · version 0.1.0
 - Asks for: `pages.add`, `navigate`
