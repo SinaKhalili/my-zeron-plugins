@@ -6,11 +6,11 @@ local track = ui.state("headamp.track", {})
 local elapsed = ui.state("headamp.elapsed", 0)
 local enabled = zeron.setting("show")
 local music_folders = zeron.setting("folders")
-local web = ui.web("headamp-deck", { profile = "headamp-local", messages = true, new_windows = false, transparent = true })
+local web = ui.web("headamp-page", { profile = "headamp-local", messages = true, new_windows = false, transparent = true })
 local polling = false
 local artwork_installed = false
 local loaded = ui.state("headamp.page-loaded", false)
-local PAGE_VERSION = "1.1.2"
+local PAGE_VERSION = "1.2.1"
 -- The folder library (library.luau): python3 lists the folders from Settings
 -- and reads a track's bytes as it is about to play.
 local HELPER = require("./library")
@@ -47,6 +47,7 @@ local function accept(value)
         duration = if type(value.duration) == "number" then value.duration else 0,
         count = if type(value.count) == "number" then value.count else 0,
         error = if type(value.error) == "string" then value.error else "",
+        audio = if type(value.audio) == "string" then value.audio else "",
     }
     -- Playback emits frequent clock updates. Keep the stationary controls
     -- and artwork untouched unless their own metadata actually changes.
@@ -275,6 +276,8 @@ end
 local function subtitle()
     local t = track:get()
     if t.error and t.error ~= "" then return t.error end
+    -- Playing, but the page's audio has not started: opening the deck starts it.
+    if playing() and t.audio and t.audio ~= "" and t.audio ~= "running" then return "Open Headamp to hear it" end
     if (t.count or 0) == 0 then return "Add your music" end
     if t.artist and t.artist ~= "" then return t.artist end
     return if playing() then "Now playing" else "Ready when you are"
@@ -439,19 +442,3 @@ zeron.place {
         }
     end,
 }
-
--- TEMPORARY probe: is the folded page in the window, and does its audio wake?
-do
-    local record = zeron.store("probe", {})
-    local n, seen = 0, {}
-    ui.every(1000, function()
-        n += 1
-        if n == 5 then web:run("window.headamp && window.headamp.command('layout')") end
-        web:eval("window.headamp ? (function(){const s=window.headamp.snapshot();return {audio:s.audio,status:s.status,hidden:document.hidden,w:innerWidth,h:innerHeight};})() : null", function(page)
-            if n <= 9 then
-                table.insert(seen, { n = n, page = page })
-                record:set({ round = 4, seen = seen })
-            end
-        end)
-    end)
-end

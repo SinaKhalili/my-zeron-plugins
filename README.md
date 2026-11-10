@@ -54,7 +54,7 @@ A tiny top-bar music player that opens a full retro Winamp deck.
 
 <img src="media/headamp.png" width="446" alt="Headamp: the top-bar player and its Winamp deck">
 
-- Folder: `headamp` · version 1.3.0
+- Folder: `headamp` · version 1.3.1
 - Asks for: `ui.add`, `web`, `commands`
 - Needs: Python 3, to read a folder of music
 

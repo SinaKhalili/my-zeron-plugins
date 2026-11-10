@@ -46,13 +46,33 @@ return function(vendor)
   function tracks(){ try { return player ? player.getPlaylistTracks() : []; } catch (_) { return []; } }
   // Webamp's audio stays silent until its own page is clicked, and the top
   // bar's buttons are not on it: wake it whenever the deck is used. A track
-  // can be "playing" with no sound otherwise.
+  // can be "playing" with no sound otherwise. Never while the page is out of
+  // sight: WebKit leaves that start pending, and a page whose audio was
+  // started that way stayed silent for good.
   function audioState(){try{return String(player.media._context.state || '');}catch(_){return '';}}
   function wake(){
     try{
       const context=player.media._context;
-      if(context && context.state!=='running' && typeof context.resume==='function')context.resume().catch(()=>{});
+      if(document.hidden || !context || context.state==='running' || typeof context.resume!=='function')return;
+      context.resume().catch(()=>{});
     }catch(_){}
+  }
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden && player && player.getMediaStatus()==='PLAYING')wake();});
+  // For when a track plays and nothing is heard: the state of each stage,
+  // and how loud the sound is before the volume (`played`) and after it, as
+  // it leaves the page (`heard`), from 0 to 1.
+  let meter=null;
+  function diagnose(){
+    const out={};
+    try{
+      const media=player.media, context=media._context, audio=media._source._audio;
+      const level=node=>{const data=new Float32Array(node.fftSize);node.getFloatTimeDomainData(data);let peak=0;for(const v of data)peak=Math.max(peak,Math.abs(v));return Math.round(peak*10000)/10000;};
+      if(!meter){meter=context.createAnalyser();meter.fftSize=2048;media._gainNode.connect(meter);}
+      out.context={state:context.state,rate:context.sampleRate,time:Math.round(context.currentTime*10)/10,channels:context.destination.channelCount};
+      out.element={paused:audio.paused,muted:audio.muted,volume:audio.volume,time:Math.round(audio.currentTime*10)/10,ready:audio.readyState,source:String(audio.src).split(':')[0]};
+      out.gain=media._gainNode.gain.value;out.played=level(media._analyser);out.heard=level(meter);
+    }catch(error){out.error=String(error);}
+    return out;
   }
   function snapshot(){
     const state = player && player.store ? player.store.getState() : null;
@@ -368,6 +388,7 @@ return function(vendor)
   }
   window.headamp = {
     snapshot:snapshot,
+    diagnose:diagnose,
     applyBareLayout:applyBareLayout,
     library:setLibrary,
     want:want,
