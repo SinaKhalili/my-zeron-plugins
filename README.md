@@ -45,6 +45,10 @@ A deep-space look for the whole window: stars and a nebula behind everything, a 
 
 <img src="media/cosmos.png" width="864" alt="Cosmos: stars and a nebula behind the whole window, a planet in the corner, a rocket on the message box">
 
+<a href="media/cosmos-trailer.mp4"><img src="media/cosmos-trailer.gif" width="520" alt="The Cosmos trailer: a Saturn V counting down and leaving the message box"></a>
+
+▶ [Watch the trailer](media/cosmos-trailer.mp4) (39 seconds, with sound). The voices are NASA's own recordings of Apollo 11.
+
 - Folder: `cosmos` · version 1.0.0
 - Asks for: `ui.add`, `ui.change`, `sessions.read`
 
