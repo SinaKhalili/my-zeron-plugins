@@ -1,0 +1,78 @@
+{
+  "id": "pixel-walker",
+  "name": "Pixel Walker",
+  "version": "1.1.0",
+  "description": "A tiny pixel fellow, joined by a colour-coded walker for each running subagent of the open chat.",
+  "entry": "init.luau",
+  "permissions": [
+    "ui.add",
+    "sessions.read",
+    "commands"
+  ],
+  "signature": {
+    "key": "V4q72PyO-Ljau5GO0dbTEBbCsFxo6gW2al_JjNrvhYs",
+    "files": {
+      "README.md": "3e22c7a574d75a1d1e0a72464be4e33ea9e8ffe429068263446b3bea4d5554de",
+      "activity.py": "73138f8449811c3d002968115e6a30e1786d7a3b3205d5b69481ffc0b4111d6c",
+      "icon.svg": "b4519a8744cb28be381d1af9d1a8bdf4f1b9f1947a63481468b15d18e9ea41a8",
+      "init.luau": "aaba64c356fed09e8e489ae02429f609840f9e2b234cf0ad17e5a98d3b470073",
+      "locales/en.json": "1907b27eef4bc207b798eace3bf44da47f9886707800cacc71ad233b4ab50437",
+      "sprite.luau": "ef8a1636ac0a455ac1a47e401885c7d7b3640e8cf831a23e4a10fef21914911d",
+      "zeron.luau": "6bc3d835e87196000885389839c4a2e87da9db35e617471ee6a6ab75217c1f19"
+    },
+    "sig": "RoC_qhPymqObkRzTo4UMfl4iEVpAaLbnGaL_MCInzBo-i-ESS2wmAWHh_Tpy0jnL1C5tVzpO0TjMv3u1gXJBCQ"
+  },
+  "icon": "icon.svg",
+  "settings_description": "Pixel fellows walk along the top bar and turn at the edges. Each running subagent of the open chat adds a walker with its own colour and pace. They let clicks pass through and rest when hidden or Reduce Motion is on.",
+  "settings": [
+    {
+      "id": "walking",
+      "kind": "switch",
+      "section": "Walker",
+      "label": "Walking",
+      "description": "Pause or resume the little fellow.",
+      "default": true
+    },
+    {
+      "id": "subagents",
+      "kind": "switch",
+      "section": "Walker",
+      "label": "Subagent walkers",
+      "description": "One extra walker for each running subagent of the open chat. Finished subagents leave automatically.",
+      "default": true
+    },
+    {
+      "id": "speed",
+      "kind": "number",
+      "section": "Walker",
+      "label": "Walking speed",
+      "description": "How quickly he crosses the top bar.",
+      "min": 10,
+      "max": 100,
+      "step": 5,
+      "unit": "points/s",
+      "default": 40
+    },
+    {
+      "id": "size",
+      "kind": "choice",
+      "style": "segmented",
+      "section": "Walker",
+      "label": "Size",
+      "default": "normal",
+      "options": [
+        {
+          "value": "tiny",
+          "label": "Tiny"
+        },
+        {
+          "value": "normal",
+          "label": "Normal"
+        }
+      ]
+    }
+  ],
+  "commands": [
+    "python3"
+  ]
+}

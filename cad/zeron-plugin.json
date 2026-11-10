@@ -1,0 +1,162 @@
+{
+  "id": "cad",
+  "name": "CAD",
+  "version": "0.1.0",
+  "description": "Parametric 3D CAD beside your chat: describe a part and the agent models it, then shape it with the mouse, sliders and sketches.",
+  "entry": "init.luau",
+  "icon": "icon.svg",
+  "permissions": [
+    "ui.add",
+    "panel.tabs",
+    "compose",
+    "tools",
+    "files"
+  ],
+  "tools": [
+    {
+      "name": "get_design",
+      "description": "Read this chat's CAD design (the parametric 3D model shown in the chat's CAD tab): the design JSON, the person's current parameter values, what they have selected with the mouse (path, name, type, node), and the last build (status, error, bounds in mm, parts with their paths, triangle count). Call it before changing a design the person may have edited, and whenever they refer to 'this part', 'the selected part' or 'the model'. When the person clicked a face, the selection includes `face`: the point (mm) on it, its normal and which way it faces; use it to place features exactly where they pointed.",
+      "input": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "set_design",
+      "description": "Create or replace this chat's CAD design: a parametric solid model, built here with booleans and shown in the chat's CAD tab (it opens by itself). Use it whenever the person asks to design, model, make or change a 3D part (a bracket, an enclosure, a gear, a knob, a stand...). Give `summary`, a few words saying what changed (it labels the change in the person's history timeline). Returns the build: status 'ready' or 'error' (with the failing node's path), bounds, parts. Make designs parametric: put every meaningful dimension in `params` (they become sliders the person drags) and write sizes as expressions of them.\n\nDESIGN (JSON): { name, units: 'mm', params: [ { id, label, value, min, max, step, unit } | { id, label, value: true|false } (a switch) ], vars: [ { id, value: 'expression' } ] (derived values, in order), body: [ node, ... ] }.\n\nBODY is a feature list applied in order: each node is added (default), or with mode 'cut' subtracted from everything before it, or with mode 'intersect' kept only where it overlaps it. Z is up; units are mm; the build plate is z = 0.\n\nNODE: { type, name (always give one: the person sees and selects parts by it), color ('#rrggbb' or steel, aluminium, brass, copper, wood, rubber, plastic, red, blue, ...), mode, if: 'expression' (left out when 0/false), hidden: true, translate: [x,y,z], rotate: [rx,ry,rz] (degrees, applied X then Y then Z), scale: n or [x,y,z], mirror: [nx,ny,nz], mirror_copy: [nx,ny,nz] (adds a mirrored copy), repeat: { count, offset: [dx,dy,dz] } (a linear pattern), radial: { count, angle (default 360), axis: 'z'|'x'|'y', center: [x,y,z] } (a circular pattern) }. Placement applies as translate(rotate(scale(mirror(shape)))); patterns copy the placed node.\n\nTYPES: box { size: [x,y,z] or n, center: bool (default false: from the origin to +size), radius: rounds the 4 vertical edges } · cylinder { h, r or d, or r1/r2 (d1/d2) for a cone, center, segments } (along +Z from z = 0) · sphere { r or d, segments } (centred) · torus { R (ring), r (tube) } (flat on XY, centred) · extrude { points: [[x,y], ...] (a closed outline, any simple polygon) or circle: r, h, center } (from z = 0 up) · revolve { points: [[r,z], ...] (a closed profile, r >= 0), angle (default 360), segments } (turned about Z) · group / union { children: [...] } (a feature list of its own: children take mode too) · difference { children } (the first minus the rest) · intersection { children }.\n\nVALUES: any number may be an expression string of params and vars: 'width/2 - wall', 'holes > 0 ? 3 : 0', 'sin(angle) * r', with + - * / % ^, comparisons, && || !, ?:, and sin cos tan asin acos atan atan2 (degrees), sqrt abs min max floor ceil round pow exp ln log clamp sign, pi. Booleans read as 1 and 0.\n\nTIPS: make cutters overshoot the faces they cut through (h: 'thickness + 2', translate z -1) so cuts open cleanly; prefer one extrude or revolve over many booleans; keep segments modest (the default follows size); keep the model on the plate (z >= 0). Example: { name: 'Plate', units: 'mm', params: [ { id: 'w', label: 'Width', value: 60, min: 20, max: 120, step: 1, unit: 'mm' }, { id: 't', label: 'Thickness', value: 4, min: 1, max: 10, step: 0.5, unit: 'mm' } ], body: [ { type: 'box', name: 'Plate', size: ['w', 40, 't'], radius: 4, translate: ['-w/2', -20, 0] }, { type: 'cylinder', name: 'Hole', mode: 'cut', d: 5, h: 't + 2', translate: ['-w/2 + 8', -12, -1], repeat: { count: 2, offset: ['w - 16', 0, 0] } } ] }.",
+      "input": {
+        "type": "object",
+        "properties": {
+          "design": {
+            "type": "object",
+            "description": "The whole design: { name, units, params, vars, body }."
+          },
+          "values": {
+            "type": "object",
+            "description": "Optional: parameter values to start from, by id (else each param's own value, keeping the person's values for params that still exist)."
+          },
+          "fit": {
+            "type": "boolean",
+            "description": "Optional: frame the view on the new design (it frames a chat's first design by itself)."
+          },
+          "summary": {
+            "type": "string",
+            "description": "A few words for the design's history timeline, e.g. 'made it futuristic' or 'added mounting holes'."
+          }
+        },
+        "required": [
+          "design"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "set_params",
+      "description": "Set parameter values of this chat's CAD design (as if the person dragged its sliders), by parameter id: { values: { width: 80, flange: false } }. Returns the build.",
+      "input": {
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "object",
+            "description": "Parameter id to a number (or true/false for a switch)."
+          }
+        },
+        "required": [
+          "values"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "edit_part",
+      "description": "Change one node of this chat's CAD design in place, by its path (from get_design's parts or selection, e.g. 'body.2' or 'body.3.children.1'): `set` merges fields into it ({ d: 8, translate: [0, 0, 5], mode: 'cut' }), `unset` removes fields by name, `remove: true` deletes the node. Cheaper than set_design for a small change to what the person selected. Returns the build.",
+      "input": {
+        "type": "object",
+        "properties": {
+          "path": {
+            "type": "string"
+          },
+          "set": {
+            "type": "object"
+          },
+          "unset": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "remove": {
+            "type": "boolean"
+          },
+          "summary": {
+            "type": "string",
+            "description": "A few words for the history timeline."
+          }
+        },
+        "required": [
+          "path"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "propose_variants",
+      "description": "Propose 2 to 6 alternative takes on this chat's CAD design, shown side by side in the CAD tab's Variants panel as live 3D thumbnails: the person points at one to preview it full-size and picks one with Use (it becomes the design, undoably). Use it when the person asks for options, variations, alternatives, ideas or 'a few versions', or when a request is open-ended (a style, a look) and showing choices beats guessing. Each variant is a whole design in set_design's format (same params where it makes sense, so their sliders carry over) with a short `label` (2-4 words) and an optional one-line `note` on what's different. Make them meaningfully different (shape language, proportions, features), not small tweaks. Returns each variant's build status and size; the current design is unchanged until the person picks one.",
+      "input": {
+        "type": "object",
+        "properties": {
+          "variants": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 6,
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "note": {
+                  "type": "string"
+                },
+                "design": {
+                  "type": "object"
+                },
+                "values": {
+                  "type": "object"
+                }
+              },
+              "required": [
+                "label",
+                "design"
+              ]
+            }
+          }
+        },
+        "required": [
+          "variants"
+        ],
+        "additionalProperties": false
+      }
+    }
+  ],
+  "signature": {
+    "key": "V4q72PyO-Ljau5GO0dbTEBbCsFxo6gW2al_JjNrvhYs",
+    "files": {
+      "README.md": "8ffc8f87938f2e98c50e3595609c63ba57ce3930d5140208a53bae54d74e54c6",
+      "csg.luau": "9c326fdea5df044c9c9b451af3082e39b0cce59c1142e6df3ed996de516a6c55",
+      "designs.luau": "7264c166f33e26fe0f234c6d1e9b8e0460282f1f57dc9722e0752e507f72c10f",
+      "examples.luau": "4f19ef72ac7c0a8a12e123870c8920831be738fd8fb13552eb75bc7c760ab221",
+      "expr.luau": "fb604a471c4725cd62db9b7f6e48a66a43ca395b62eda5586751bfd533971d99",
+      "geom.luau": "d2cf7ed705598d916cf28089839d083166cfb74f9baf52b81c86c152d6ec3b90",
+      "gpu.luau": "3af7fc185f08f3f9b6cdeb172ec48fbec3562d942ff436cef86ef3500a4dc93e",
+      "icon.svg": "a9c5b63f11e19e45e422344de768a3fe7ebdbb7bab693971af0df6c8c5887dea",
+      "init.luau": "6e17dc03dd36dae86d69fed6426e6a148bb661442a9fbc1d7c64798c59dd91a9",
+      "locales/en.json": "c1f27775c620be52d81823e1adb99405abd405a47f51dab4b450f6fcafa51a63",
+      "render.luau": "e7d1108cca47e2b36a1edc8aaeee0229116edd7f7f1748f50edc896a15591067",
+      "view.luau": "1e6208ff7412fda77340f60283d2fc75929eecba088e4c0c5f04e91483bd8cc2",
+      "zeron.luau": "6bc3d835e87196000885389839c4a2e87da9db35e617471ee6a6ab75217c1f19"
+    },
+    "sig": "0lQ-7Dvz6_rZRZdleB_5KcIBlKqrr9GQLsTcnvUIEhB9oNT_UZEsyAKUzu_3PD6zoNuRB2LekqUzv9o4qQvMDA"
+  }
+}

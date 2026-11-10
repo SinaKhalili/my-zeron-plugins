@@ -1,0 +1,23 @@
+{
+  "id": "plugin-manager",
+  "name": "Plugin Manager",
+  "version": "0.1.0",
+  "description": "A Plugins row in the sidebar that opens Settings → Plugins in one click.",
+  "entry": "init.luau",
+  "icon": "icon.svg",
+  "permissions": [
+    "pages.add",
+    "navigate"
+  ],
+  "signature": {
+    "key": "V4q72PyO-Ljau5GO0dbTEBbCsFxo6gW2al_JjNrvhYs",
+    "files": {
+      "README.md": "3c0e9871d8e0f935f0d7e0d4a8989a532e17ce79b355a4613c3b32e7ae5d6137",
+      "icon.svg": "4ee440f21d89ae5b36ef4eda465c613d6642399a9e31e2a776510300e0c11224",
+      "init.luau": "8af478c939a88f5c46a3ea2a7d7e1f7a7cbb9186ecd694509cf1cc3c2eb2c6d9",
+      "locales/en.json": "1fc19bf0f581471f6133055b4fc4af22b8f22cb3c69784dd767c176d18ef211b",
+      "zeron.luau": "6bc3d835e87196000885389839c4a2e87da9db35e617471ee6a6ab75217c1f19"
+    },
+    "sig": "XkQ2Ayk-dMCDjNRKvWjVH8oxF309zufkD88QoTjG4ME6xs2PTIUUJSzzoPvOabz8r0Pe9rHlSmssuqoClMh4CA"
+  }
+}

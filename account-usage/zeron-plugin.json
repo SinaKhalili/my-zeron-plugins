@@ -1,0 +1,90 @@
+{
+  "id": "account-usage",
+  "name": "Account Usage",
+  "version": "1.1.0",
+  "description": "Remaining session and weekly usage for the selected coding account, in Zeron’s bottom bar.",
+  "entry": "init.luau",
+  "permissions": [
+    "ui.add",
+    "commands"
+  ],
+  "icon": "icon.svg",
+  "commands": [
+    "python3"
+  ],
+  "settings_description": "Remaining coding-account usage in the bottom bar. It follows the open chat’s provider and device; a new chat keeps the last provider. Hover for reset times and data freshness, or click to refresh.",
+  "settings": [
+    {
+      "id": "show",
+      "kind": "switch",
+      "label": "Show remaining usage",
+      "default": true,
+      "section": "Usage"
+    },
+    {
+      "id": "provider",
+      "kind": "choice",
+      "label": "Provider",
+      "default": "auto",
+      "section": "Usage",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Follow open chat"
+        },
+        {
+          "value": "codex",
+          "label": "Codex"
+        },
+        {
+          "value": "claude-code",
+          "label": "Claude Code"
+        },
+        {
+          "value": "cursor",
+          "label": "Cursor"
+        },
+        {
+          "value": "devin",
+          "label": "Devin"
+        },
+        {
+          "value": "grok",
+          "label": "Grok"
+        },
+        {
+          "value": "pi",
+          "label": "Pi"
+        },
+        {
+          "value": "hermes",
+          "label": "Hermes"
+        }
+      ]
+    },
+    {
+      "id": "refresh",
+      "kind": "number",
+      "label": "Refresh every",
+      "default": 5,
+      "min": 1,
+      "max": 15,
+      "step": 1,
+      "unit": "minutes",
+      "section": "Usage"
+    }
+  ],
+  "signature": {
+    "key": "V4q72PyO-Ljau5GO0dbTEBbCsFxo6gW2al_JjNrvhYs",
+    "files": {
+      "README.md": "c0ae6775e945fb1c06495146bf702820634d05b1d225b834839b85b0f81cf1aa",
+      "icon.svg": "eada7157cc6061183dfd231ffe4dfa39c9064e1807761d73bf4eb0ec8c317e32",
+      "init.luau": "92fd4ac4c9a755caab6065a4df5e69930779843df0c1e0a3836658492edaae5c",
+      "ipc.py": "137a79b556e7994f99984e55095a0bb7d4dc190e93b50905d1473157d5cd35e7",
+      "locales/en.json": "2a126881becfeca81b2858141297c4a2506a97154c0212aa3ba43748f4b91f6f",
+      "usage.py": "fd45e124703f7e9506d21219b28cceadc800a579ebf48d12568cbcff2522fc82",
+      "zeron.luau": "6bc3d835e87196000885389839c4a2e87da9db35e617471ee6a6ab75217c1f19"
+    },
+    "sig": "0A75iaeATnB1EpFj6UczinpEazBke9t81jUwYQW7QoTxOuw9nlqmdnjELmyXlY3kzZD8WU9ft5Crbgrifh3oAQ"
+  }
+}

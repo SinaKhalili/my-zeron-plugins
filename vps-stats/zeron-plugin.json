@@ -1,0 +1,74 @@
+{
+  "id": "vps-stats",
+  "name": "VPS Stats",
+  "version": "1.1.0",
+  "description": "Live CPU, RAM, disk, load, and uptime for your VPS.",
+  "entry": "init.luau",
+  "permissions": [
+    "ui.add",
+    "pages.add",
+    "commands"
+  ],
+  "signature": {
+    "key": "V4q72PyO-Ljau5GO0dbTEBbCsFxo6gW2al_JjNrvhYs",
+    "files": {
+      "README.md": "b2488800f158ae6a1402dd04e5378e9dc18b6c86ff8bf7dfd5ef5bffe26c5b0f",
+      "collector.luau": "b26996d0276ede6175c215c7de8a667a5eefe652c3fdb67415d7e94ea83e599d",
+      "icon.svg": "9e7ccc49534b4613094a62c84d00a3018e4f579e083fff60a32939fa86ab206b",
+      "init.luau": "c40a4542ebe9c1a7feb7033584f80754128e2194b76beaffe8195a0802ee0343",
+      "locales/en.json": "69adef430070accb9e228e2d01b7f4f1a7f882daafc1ca54fd24c0ad6da2e604",
+      "zeron.luau": "6bc3d835e87196000885389839c4a2e87da9db35e617471ee6a6ab75217c1f19"
+    },
+    "sig": "I8QzMH1F2Pu6xLDSS_IPP691MqMYNOZuVqASSSw60O5LN9lFbVBbeOulDKXgMB9np68AkW1jFchB52bw_M6zDQ"
+  },
+  "icon": "icon.svg",
+  "commands": [
+    "ssh"
+  ],
+  "settings_description": "Live, read-only Linux VPS metrics over your existing SSH connection. Open VPS Stats in the sidebar for history and details. No software is installed on the server.",
+  "settings": [
+    {
+      "id": "host",
+      "kind": "text",
+      "label": "SSH host",
+      "description": "An existing SSH alias or user@hostname. Uses your normal SSH configuration and key.",
+      "default": "ovh",
+      "section": "Connection"
+    },
+    {
+      "id": "disk",
+      "kind": "text",
+      "label": "Disk path",
+      "description": "The filesystem containing this path is monitored.",
+      "default": "/",
+      "section": "Connection"
+    },
+    {
+      "id": "interval",
+      "kind": "number",
+      "label": "Refresh every",
+      "default": 10,
+      "min": 5,
+      "max": 120,
+      "step": 5,
+      "unit": "seconds",
+      "section": "Monitoring"
+    },
+    {
+      "id": "monitor",
+      "kind": "switch",
+      "label": "Monitoring",
+      "description": "Collect stats while the Zeron window is visible.",
+      "default": true,
+      "section": "Monitoring"
+    },
+    {
+      "id": "bar",
+      "kind": "switch",
+      "label": "Show bottom-bar summary",
+      "description": "CPU, RAM and disk percentages beneath the chat composer. Click to refresh; hover for details.",
+      "default": true,
+      "section": "Monitoring"
+    }
+  ]
+}

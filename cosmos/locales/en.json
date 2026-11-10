@@ -1,0 +1,13 @@
+{
+  "moon": {
+    "tip": "{phase} · {lit}% lit",
+    "new": "New moon",
+    "waxing_crescent": "Waxing crescent",
+    "first_quarter": "First quarter",
+    "waxing_gibbous": "Waxing gibbous",
+    "full": "Full moon",
+    "waning_gibbous": "Waning gibbous",
+    "last_quarter": "Last quarter",
+    "waning_crescent": "Waning crescent"
+  }
+}

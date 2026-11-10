@@ -1,0 +1,52 @@
+{
+  "id": "headamp",
+  "name": "Headamp",
+  "version": "1.3.0",
+  "description": "A tiny top-bar music player that opens a full retro Winamp deck.",
+  "entry": "init.luau",
+  "permissions": [
+    "ui.add",
+    "web",
+    "commands"
+  ],
+  "commands": [
+    "python3"
+  ],
+  "signature": {
+    "key": "V4q72PyO-Ljau5GO0dbTEBbCsFxo6gW2al_JjNrvhYs",
+    "files": {
+      "README.md": "a7dd370bb5a14348621f498fde13d050db40405fd50a7a3ad3d1e3b08da90a84",
+      "WEBAMP-LICENSE.txt": "fc7f2696d3e70b5c04659de0a843c1d7defebbb14eb2a07a38808fead88d9279",
+      "artwork.luau": "ef47c71564689d2d0bdfeb156f69005a1a831709c1e6e6fde20acf5ebe6894a1",
+      "bare.luau": "e47d3bd7872b8db8def97dcddf03320527e899e4ca587c4bc41148c35e33b58a",
+      "icon.svg": "53cb0b34cb02314d83ab37b71f82f672780675a59a912a018fb453c04ee508ad",
+      "init.luau": "34fd960f26ee796e9df8a3d06c47260246cbc381963688a961897761cce12ecd",
+      "library.luau": "3f83f664269c05008e598b44805cf68149fd7250b33cca38e8b25160b8106973",
+      "locales/en.json": "53a3cb947ae19ba72e8b6e24a547841dd8eb78b251d8a4bf4b99845de99fe0a8",
+      "player.luau": "a084147e00f07e1c22b1ae7d4d4b16103907656be0c25be77c68fc96ce947d2d",
+      "vendor.luau": "70c855b2a899e865080c637ef361db4c8060c73d7c9907d94ed38dafbf128230",
+      "zeron.luau": "6bc3d835e87196000885389839c4a2e87da9db35e617471ee6a6ab75217c1f19"
+    },
+    "sig": "QUlu3r01M8Ui-ywlMW3qeEYMErRzX-lf0wKCysi3S7rkPy1UF_Kp7WSSiQoIyuQBuo1_M0bQ3uOXEtloMgE1Bw"
+  },
+  "icon": "icon.svg",
+  "settings_description": "A local music deck in the top bar. Click the track to open Headamp and use the transport controls without leaving your chat. It lists the music in your folders each time Zeron starts; add other files or a folder from the deck.",
+  "settings": [
+    {
+      "id": "show",
+      "kind": "switch",
+      "label": "Show top-bar player",
+      "default": true,
+      "section": "Player"
+    },
+    {
+      "id": "folders",
+      "kind": "text",
+      "label": "Music folders",
+      "description": "Folders to list each time Zeron starts, subfolders too, separated by commas. Tracks play from where they are. Leave empty to start with only what you add.",
+      "placeholder": "~/Music, ~/Downloads/Albums",
+      "default": "~/Music",
+      "section": "Library"
+    }
+  ]
+}

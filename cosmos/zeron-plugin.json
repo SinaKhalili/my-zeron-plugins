@@ -1,0 +1,189 @@
+{
+  "id": "cosmos",
+  "name": "Cosmos",
+  "version": "1.0.0",
+  "description": "A deep-space look for the whole window: stars and a nebula behind everything, a ringed planet, a rocket on the message box, tonight's moon, and an orbital wallpaper for new chats.",
+  "icon": "icon.svg",
+  "entry": "init.luau",
+  "permissions": [
+    "ui.add",
+    "ui.change",
+    "sessions.read"
+  ],
+  "ui": {
+    "change": [
+      "#new-chat-background"
+    ],
+    "replace": []
+  },
+  "settings_description": "Cosmos draws a sky behind Zeron's window. Its colours come from the Cosmos theme (Settings → Themes); the nebula and the light on the rocket follow your accent.",
+  "settings": [
+    {
+      "id": "show",
+      "kind": "choice",
+      "section": "Cosmos",
+      "label": "Show",
+      "description": "With its theme, the sky comes and goes as you switch themes in Settings → Themes (it knows the Cosmos theme by its window colour).",
+      "options": [
+        {
+          "value": "theme",
+          "label": "With the Cosmos theme"
+        },
+        {
+          "value": "always",
+          "label": "Always"
+        },
+        {
+          "value": "never",
+          "label": "Never"
+        }
+      ],
+      "default": "theme"
+    },
+    {
+      "id": "stars",
+      "kind": "switch",
+      "section": "Sky",
+      "label": "Stars",
+      "description": "A starfield behind the sidebar and the title bar.",
+      "default": true
+    },
+    {
+      "id": "chat_stars",
+      "kind": "switch",
+      "section": "Sky",
+      "label": "Sky behind the conversation",
+      "description": "A fainter sky inside the chat's card, fading out toward the message box.",
+      "default": true
+    },
+    {
+      "id": "nebula",
+      "kind": "choice",
+      "style": "segmented",
+      "section": "Sky",
+      "label": "Nebula",
+      "description": "Clouds of colour in your accent's hues.",
+      "options": [
+        {
+          "value": "off",
+          "label": "Off"
+        },
+        {
+          "value": "soft",
+          "label": "Soft"
+        },
+        {
+          "value": "vivid",
+          "label": "Vivid"
+        }
+      ],
+      "default": "soft"
+    },
+    {
+      "id": "planet",
+      "kind": "switch",
+      "section": "Sky",
+      "label": "Ringed planet",
+      "description": "Rising at the sidebar's bottom corner.",
+      "default": true
+    },
+    {
+      "id": "twinkle",
+      "kind": "switch",
+      "section": "Sky",
+      "label": "Twinkling and shooting stars",
+      "description": "A few stars breathe and one crosses now and then. Still while the window is hidden or Reduce Motion is on.",
+      "default": true
+    },
+    {
+      "id": "rocket",
+      "kind": "switch",
+      "section": "Companions",
+      "label": "Rocket on the message box",
+      "description": "It lifts off while the chat's agent is working and lands when it's done.",
+      "default": true
+    },
+    {
+      "id": "rocket_kind",
+      "kind": "choice",
+      "section": "Companions",
+      "label": "Which rocket",
+      "description": "Stylized models of real ones. The Falcon 9 folds its legs as it leaves and opens them as it lands.",
+      "options": [
+        {
+          "value": "saturn",
+          "label": "Saturn V"
+        },
+        {
+          "value": "shuttle",
+          "label": "Space Shuttle"
+        },
+        {
+          "value": "falcon",
+          "label": "Falcon 9"
+        },
+        {
+          "value": "starship",
+          "label": "Starship"
+        },
+        {
+          "value": "soyuz",
+          "label": "Soyuz"
+        }
+      ],
+      "default": "saturn"
+    },
+    {
+      "id": "moon",
+      "kind": "switch",
+      "section": "Companions",
+      "label": "Tonight's moon",
+      "description": "The Moon's real phase, after a chat's title. Point at it for its name.",
+      "default": true
+    },
+    {
+      "kind": "wallpaper",
+      "section": "Wallpaper"
+    },
+    {
+      "id": "orbit_motion",
+      "kind": "choice",
+      "style": "segmented",
+      "section": "Wallpaper",
+      "label": "Motion",
+      "description": "How the orbital view behind a new chat moves: drifting clouds, twinkling stars, and a little parallax under the pointer.",
+      "options": [
+        {
+          "value": "still",
+          "label": "Still"
+        },
+        {
+          "value": "calm",
+          "label": "Calm"
+        },
+        {
+          "value": "lively",
+          "label": "Lively"
+        }
+      ],
+      "default": "calm"
+    }
+  ],
+  "signature": {
+    "key": "V4q72PyO-Ljau5GO0dbTEBbCsFxo6gW2al_JjNrvhYs",
+    "files": {
+      "README.md": "ef6ae0be5439651cdd8c9719ad826850cfb2e8653258c18c9b89bb3c0f5cd44f",
+      "art.luau": "8e5b0232d52c580403345c62aa48ee5d02a26e0b41180b8b84b7f688a74914be",
+      "fleet.luau": "00ade6f7ef9bee309cfa8bef3a4178428697a11b469ce0899073d17d318e98fe",
+      "icon.svg": "4d812ee1ffb7347dbf9c1308350d3a392c98386244a0e08d8cf919dcc3e9cd2f",
+      "init.luau": "a69770b137b97d3473c380935cfc0a3de3818311c695d68acfea153eeaaaecda",
+      "locales/en.json": "2245df7121eff03c7c07abce07a8bd257b650ae9f8e978786cf36c7e58003ef1",
+      "moon.luau": "26e7f917bf746ec51677d6fcc38db1792019d899a0f6f841f489daed0c60c596",
+      "ship.luau": "e0e0c77675ba9333eac2ff217b1696a8b6cc87624619b7dde0cad4aefd5e4fb2",
+      "solids.luau": "d94fcca8226794218c46f468c40e4990d0f85cd5e918bdfb7677141dbca47c43",
+      "space.luau": "729fa2a4200c04a9d969905bf7479db3618745972c772ad72b88fcc4cdb0814a",
+      "zeron.luau": "6bc3d835e87196000885389839c4a2e87da9db35e617471ee6a6ab75217c1f19"
+    },
+    "sig": "1B8jJaAnlEDYx2x1ANtP8jEaO9c6KJfTaDjxUfaZzLrnEFfjYpudMJgwlcZ4WGy4U48o1kSbpujaYtMTU20GBg"
+  }
+}
