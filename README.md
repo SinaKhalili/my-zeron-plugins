@@ -36,6 +36,10 @@ Parametric 3D CAD beside your chat: describe a part and the agent models it, the
 
 <img src="media/cad.png" width="520" alt="The CAD tab beside a chat">
 
+<a href="media/cad-trailer.mp4"><img src="media/cad-trailer.gif" width="520" alt="The CAD trailer: parts springing up around the name"></a>
+
+▶ [Watch the trailer](media/cad-trailer.mp4) (46 seconds, with sound).
+
 - Folder: `cad` · version 0.1.0
 - Asks for: `ui.add`, `panel.tabs`, `compose`, `tools`, `files`
 
